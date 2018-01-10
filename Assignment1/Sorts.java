@@ -6,10 +6,13 @@ public class Sorts {
          for (int j=i+1;j<N;j++) {
             if (arr[j] < arr[i])
                min = j;
-         }  
+         }
          int temp = arr[min];
          arr[min] = arr[i];
          arr[i] = temp;
+      }
+      for (int k = 0; k<N; k++) {
+         System.out.println(arr[k]);
       }
    }
 
