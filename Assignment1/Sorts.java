@@ -24,7 +24,7 @@ public class Sorts {
    }
 
    private static void sort(int arr[], int low, int high,int helper[]) {
-      if (1 < high) {
+      if (low < high) {
          int mid = (low+high)/2;
 
          sort(arr,low,mid,helper);
