@@ -17,9 +17,9 @@ public class Sorts {
    }
 
    public static void mergeSort(int arr[], int N) {
-      
+
       int helper[] = new int[N];
-      
+
       sort(arr,0,N,helper);
    }
 
@@ -43,8 +43,8 @@ public class Sorts {
       int j = middle+1;
       int k = low;
 
-      while (i<=middle && j<= high) {
-         if (helper[i] <= helper[j]) {
+      while (i<middle && j< high) {
+         if (helper[i] < helper[j]) {
             arr[k] = helper[i];
             i++;
          }
@@ -54,7 +54,7 @@ public class Sorts {
          }
          k++;
       }
-      while (i<= middle) {
+      while (i< middle) {
          arr[k] = helper[i];
          k++;
          i++;
