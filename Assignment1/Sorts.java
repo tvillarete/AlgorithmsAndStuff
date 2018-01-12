@@ -35,7 +35,7 @@ public class Sorts {
    }
 
    private static void merge(int low, int middle, int high,int arr[], int helper[]) {
-      for (int i =low;i<=high;i++) {
+      for (int i =low;i<high;i++) {
          helper[i] = arr[i];
       }
 
