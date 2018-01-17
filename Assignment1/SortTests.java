@@ -8,7 +8,7 @@ public class SortTests {
       for (int i=0; i<arr.length; i++) {
          System.out.print(arr[i] + ", " );
       }
-      Sorts.quickSort(arr, arr.length-1);
+      Sorts.mergeSort(arr, arr.length);
       System.out.println();
       for (int i=0; i<arr.length; i++) {
          System.out.print(arr[i] + ", ");

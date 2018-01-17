@@ -17,47 +17,45 @@ public class Sorts {
    }
 
    public static void mergeSort(int arr[], int N) {
-
-      int helper[] = new int[N];
-
-      sort(arr,0,N,helper);
+      sort(0,N-1,arr);
    }
 
-   private static void sort(int arr[], int low, int high,int helper[]) {
+   private static void sort(int low, int high,int arr[]) {
       if (low < high) {
          int mid = (low+high)/2;
 
-         sort(arr,low,mid,helper);
-         sort(arr,mid+1,high,helper);
+         sort(low,mid,arr);
+         sort(mid+1,high,arr);
 
-         merge(low,mid,high,arr,helper);
+         merge(low,mid,high,arr);
       }
    }
 
-   private static void merge(int low, int middle, int high,int arr[], int helper[]) {
-      for (int i =low;i<high;i++) {
-         helper[i] = arr[i];
+   private static void merge(int low, int middle, int high,int arr[]) {
+      int arrB[] = new int[arr.length];
+      //copy array
+      for (int i = low;i<=high;i++) {
+         arrB[i] = arr[i];
       }
+      int i=low;
+      int j=middle+1;
+      int k=low;
 
-      int i= low;
-      int j = middle+1;
-      int k = low;
-
-      while (i<middle && j< high) {
-         if (helper[i] < helper[j]) {
-            arr[k] = helper[i];
+      while (i<=middle && j<= high) {
+         if (arrB[i] < arrB[j]) {
+            arr[k] = arrB[i];
             i++;
-         }
+        }
          else {
-            arr[k] = helper[j];
+            arr[k] = arrB[j];
             j++;
          }
          k++;
       }
-      while (i< middle) {
-         arr[k] = helper[i];
-         k++;
+      while (i <= middle) {
+         arr[k] = arrB[i];
          i++;
+         k++;
       }
    }
 
