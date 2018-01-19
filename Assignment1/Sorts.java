@@ -11,9 +11,6 @@ public class Sorts {
          arr[min] = arr[i];
          arr[i] = temp;
       }
-      for (int k = 0; k<N; k++) {
-         System.out.println(arr[k]);
-      }
    }
 
    public static void mergeSort(int arr[], int N) {
