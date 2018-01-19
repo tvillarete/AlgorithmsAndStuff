@@ -29,30 +29,39 @@ public class Sorts {
    }
 
    private static void merge(int low, int middle, int high,int arr[]) {
-      int arrB[] = new int[arr.length];
-      //copy array
-      for (int i = low;i<=high;i++) {
-         arrB[i] = arr[i];
-      }
-      int i=low;
-      int j=middle+1;
-      int k=low;
+      int temp;
+      temp = (high-low+1);
+      int arrB[] = new int[temp];
+      int i,j,k;
+
+      i = low;
+      j = middle+1;
+      k = 0;
 
       while (i<=middle && j<= high) {
-         if (arrB[i] < arrB[j]) {
-            arr[k] = arrB[i];
+         if (arr[i] < arr[j]) {
+            arrB[k] = arr[i];
             i++;
         }
          else {
-            arr[k] = arrB[j];
+            arrB[k] = arr[j];
             j++;
          }
          k++;
       }
       while (i <= middle) {
-         arr[k] = arrB[i];
+         arrB[k] = arr[i];
          i++;
          k++;
+      }
+      while (j <= high) {
+         arrB[k] = arr[j];
+         j++;
+         k++;
+      }
+      k=0;
+      for (i=low;i<=high;i++) {
+         arr[i] = arrB[k++];
       }
    }
 

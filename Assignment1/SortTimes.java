@@ -2,13 +2,14 @@ import java.util.Random;
 
 public class SortTimes {
    public static void main(String args[]) {
-      System.out.println("Running Times of Three Sorting Algorithms:");
+      System.out.println("Running Times of Three Sorting Algorithms:\n");
       for (int N=5000; N<=160000; N*=2) {
          for (int i=0; i<5; i++) {
             runSorts(N);
          }
          System.out.println();
       }
+      System.out.print("End of Output");
    }
 
    private static void runSorts(int N) {
@@ -49,6 +50,6 @@ public class SortTimes {
    }
 
    private static void print(long N, long T_ss, long T_ms, long T_qs) {
-      System.out.println("N="+N+", T_ss="+T_ss+", T_ms="+T_ms+", T_qs="+T_qs);
+      System.out.println("N="+N+": T_ss="+T_ss+", T_ms="+T_ms+", T_qs="+T_qs);
    }
 }

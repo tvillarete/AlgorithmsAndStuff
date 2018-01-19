@@ -19,12 +19,12 @@ public class SortCounts {
    }
 
    private static int[] runSorts(int N) {
-      int len = 160000;
+      int len = 12800;
       Random rand = new Random();
 
-      int arr1[] = new int[160000];
-      int arr2[] = new int[160000];
-      int arr3[] = new int[160000];
+      int arr1[] = new int[len];
+      int arr2[] = new int[len];
+      int arr3[] = new int[len];
       int ret[] = new int[3];
 
       int C_ss = 0, C_ms = 0, C_qs = 0;
