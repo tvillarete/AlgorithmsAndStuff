@@ -66,7 +66,7 @@ public class Sorts {
    }
 
    public static void quickSort(int[] arr, int N) {
-      recurQuickSort(arr, 0, N);
+      recurQuickSort(arr, 0, N-1);
    }
 
    private static void recurQuickSort(int[] arr, int left, int right) {
