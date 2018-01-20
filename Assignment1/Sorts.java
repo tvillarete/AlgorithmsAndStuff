@@ -1,3 +1,10 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 1/19/18
+ */
+
 public class Sorts {
    public static void selectionSort(int[] arr, int N) {
       int min;

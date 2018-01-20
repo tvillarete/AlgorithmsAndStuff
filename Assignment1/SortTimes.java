@@ -1,3 +1,10 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 1/19/18
+ */
+
 import java.util.Random;
 
 public class SortTimes {

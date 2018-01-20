@@ -1,3 +1,10 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 1/19/18
+ */
+
 public class SortTests {
    public static void main(String[] args) {
       int arr[] = new int[100];

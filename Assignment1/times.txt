@@ -1,3 +1,10 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 1/19/18
+ */
+
 Running Times of Three Sorting Algorithms:
 
 N=5000: T_ss=213, T_ms=17, T_qs=34
