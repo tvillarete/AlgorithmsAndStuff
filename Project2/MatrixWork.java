@@ -26,15 +26,20 @@ public class MatrixWork {
             printMatrix(matrix1);
             isMatrix1 = false;
          }
-         else { //matrix2;
+         else { //matrix2
             row = file.nextInt();
             col = file.nextInt();
             int[][] matrix2 = new int[row][col];
             matrix2 = fillMatrix(file,row,col);
             printMatrix(matrix2);
-
          }
       }
+      /*
+       * int[][] matrix3 = new int[row][col]; // get row/col of product?
+       * matrix3 = matrixProduct(matrix1,matrix2);
+       * System.out.println("Product matrix:");
+       * printMatrix(matrix3);
+       */
    }
 
    private static void printMatrix(int[][] arr) {
@@ -43,7 +48,7 @@ public class MatrixWork {
       System.out.println("Printing a "+ row + " x " + col + " matrix");
       for (int i=0;i<row;i++) {
          for (int j=0;j<col;j++) {
-            System.out.print(arr[i][j]);
+            System.out.print(arr[i][j] + " ");
          }
          System.out.println();
       }
