@@ -15,13 +15,15 @@ public class MatrixWork {
       }
       System.out.println("Reading from " + filename);
       boolean isMatrix1 = true;
+      int[][] matrix1 = new int[0][0];
+      int[][] matrix2 = new int[0][0];
       while (file.hasNextInt()) {
          int row;
          int col;
          if (isMatrix1) {
             row = file.nextInt();
             col = file.nextInt();
-            int[][] matrix1 = new int[row][col];
+            matrix1 = new int[row][col];
             matrix1 = fillMatrix(file,row,col);
             printMatrix(matrix1);
             isMatrix1 = false;
@@ -29,17 +31,17 @@ public class MatrixWork {
          else { //matrix2
             row = file.nextInt();
             col = file.nextInt();
-            int[][] matrix2 = new int[row][col];
+            matrix2 = new int[row][col];
             matrix2 = fillMatrix(file,row,col);
             printMatrix(matrix2);
+            
+            System.out.println("resulting array should be " + matrix1.length + " x " + matrix2[0].length);
+            int[][] matrix3 = new int[matrix1.length][matrix2[0].length];
+            matrix3 = matrixProduct(matrix1,matrix2);
+            System.out.println("Product matrix:");
+            printMatrix(matrix3);   
          }
       }
-      /*
-       * int[][] matrix3 = new int[row][col]; // get row/col of product?
-       * matrix3 = matrixProduct(matrix1,matrix2);
-       * System.out.println("Product matrix:");
-       * printMatrix(matrix3);
-       */
    }
 
    private static void printMatrix(int[][] arr) {
@@ -63,9 +65,24 @@ public class MatrixWork {
       }
       return matrix;
    }
-/*
-   public static int[][] matrixProduct(int[][] A, int[][]B) {
 
-   }*/
+   public static int[][] matrixProduct(int[][] A, int[][]B) {
+      int row1,row2,col1,col2;
+      row1 = A.length;
+      row2 = B.length;
+      col1 = A[0].length;
+      col2 = B[0].length;
+      if (col1 != row2) {
+         System.out.println("Incompatible matrices: product undefined");
+      }
+      int[][] matrix3 = new int[row1][col2];
+      //loop variables are wrong i think
+      for (int i=0;i<col1;i++) {
+         for (int j=0;j<row2;j++) {
+            matrix3[i][j] += A[i][j] * B[j][i];
+         }
+      }
+      return matrix3;
+   }
 }
 
