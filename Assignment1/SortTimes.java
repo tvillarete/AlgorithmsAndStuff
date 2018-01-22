@@ -49,7 +49,7 @@ public class SortTimes {
       T_ms = (end-start)/1000000;
 
       start = System.nanoTime();
-      Sorts.quickSort(arr3, N-1);
+      Sorts.quickSort(arr3, N);
       end = System.nanoTime();
       T_qs = (end-start)/1000000;
 

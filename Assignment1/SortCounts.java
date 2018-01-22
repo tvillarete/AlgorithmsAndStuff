@@ -12,7 +12,7 @@ public class SortCounts {
       int counts[] = new int[3];
       int count1 = 0, count2 = 0, count3 = 0;
 
-      System.out.println("Running Times of Three Sorting Algorithms:");
+      System.out.println("Average number of element-comparisons in three sorting algorithms:");
       for (int N=100; N<=12800; N*=2) {
          for (int i=0; i<100; i++) {
             counts = runSorts(N);
@@ -20,7 +20,8 @@ public class SortCounts {
          count1 += counts[0];
          count2 += counts[1];
          count3 += counts[2];
-         System.out.println();
+         print(N,count1/100,count2/100,count3/100);
+
       }
 
    }
@@ -45,7 +46,7 @@ public class SortCounts {
 
       C_ss = Sorts1.selectionSort(arr1, N);
       C_ms = Sorts1.mergeSort(arr2, N);
-      C_qs = Sorts1.quickSort(arr3, N-1);
+      C_qs = Sorts1.quickSort(arr3, N);
       ret[0] = C_ss;
       ret[1] = C_ms;
       ret[2] = C_qs;
@@ -54,6 +55,6 @@ public class SortCounts {
 
 
    private static void print(int N, long C_ss, long C_ms, long C_qs) {
-      System.out.println("N="+N+", C_ss="+C_ss+", C_ms="+C_ms+", C_qs="+C_qs);
+      System.out.println("N="+N+": C_ss="+C_ss+", C_ms="+C_ms+", C_qs="+C_qs);
    }
 }
