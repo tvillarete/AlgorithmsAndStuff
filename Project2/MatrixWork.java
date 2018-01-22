@@ -76,10 +76,11 @@ public class MatrixWork {
          System.out.println("Incompatible matrices: product undefined");
       }
       int[][] matrix3 = new int[row1][col2];
-      //loop variables are wrong i think
-      for (int i=0;i<col1;i++) {
-         for (int j=0;j<row2;j++) {
-            matrix3[i][j] += A[i][j] * B[j][i];
+      for (int i=0;i<row1;i++) {
+         for (int j=0;j<col2;j++) {
+            for (int k=0;k<col1;k++) {
+               matrix3[i][j] += A[i][k] * B[k][j];
+            }
          }
       }
       return matrix3;
