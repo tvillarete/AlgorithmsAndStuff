@@ -1,0 +1,8 @@
+#!/bin/bash
+for testInput in *.txt; do
+   name=${testInput%.txt}
+   echo $name.txt
+   #java < $testInput > $name.out
+   java MatrixWork < $testInput > $name.expect
+   #diff -q $name.out $name.expect
+done
