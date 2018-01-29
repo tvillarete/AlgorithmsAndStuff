@@ -6,6 +6,7 @@ public class MatrixWork {
       System.out.println("Please enter the input-file's name");
       Scanner s = new Scanner(System.in);
       String filename = s.next();
+      System.out.println(filename);
       Scanner file = new Scanner(System.in);
       try {
          file = new Scanner(new File(filename));
