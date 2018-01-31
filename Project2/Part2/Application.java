@@ -37,22 +37,18 @@ public class Application {
             col = file.nextInt();
             matrix2 = new int[row][col];
             matrix2 = fillMatrix(file,row,col);
-            //printMatrix(matrix2);
 
             try {
-               //System.out.println("resulting array should be " + matrix1.length + " x " + matrix2[0].length);
                int[][] matrix3 = new int[matrix1.length][matrix2[0].length];
-               matrix3 = matrixProduct(matrix1,matrix2);
-               //System.out.println("Product matrix:");
+               matrix3 = MatrixProduct.matrixProduct_DAC(matrix1, matrix2);
+               System.out.println("STUFF");
                printMatrix(matrix3);
-               printMatrixSize(matrix3);
             }
             catch (IllegalArgumentException e) {
                System.out.println("Incompatible Matrices");
             }
          }
       }
-      MatrixProduct.matrixProduct_DAC(matrix1, matrix2);
    }
 
    private static void printMatrix(int[][] arr) {
