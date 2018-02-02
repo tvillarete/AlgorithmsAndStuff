@@ -93,6 +93,14 @@ public class MatrixProduct {
       return C;
    }
 
+   private static void strassAdd(int[][] A, int[][] B, int rowA, int colA, int rowB, int colB, int n) {
+   
+   }
+
+   private static void strassSub(int[][] A, int[][] B, int rowA, int colA, int rowB, int colB, int n) {
+   
+   }
+
    private static void sumMatrix(int[][] C, int[][] A, int[][] B, int rowC, int colC) {
       int n = A.length;
       for (int i=0; i<n; i++) {
