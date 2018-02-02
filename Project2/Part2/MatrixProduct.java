@@ -1,3 +1,11 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 2/2/18
+ * Project 2
+ */
+
 public class MatrixProduct {
    public static int[][] matrixProduct_DAC(int[][] A, int[][] B) {
       try {
