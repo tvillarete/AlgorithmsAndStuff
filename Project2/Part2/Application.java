@@ -40,8 +40,8 @@ public class Application {
 
             try {
                int[][] matrix3 = new int[matrix1.length][matrix2[0].length];
-               matrix3 = MatrixProduct.matrixProduct_DAC(matrix1, matrix2);
-               System.out.println("STUFF");
+               //matrix3 = MatrixProduct.matrixProduct_DAC(matrix1, matrix2);
+               matrix3 = MatrixProduct.matrixProduct_Strassen(matrix1, matrix2);
                printMatrix(matrix3);
             }
             catch (IllegalArgumentException e) {

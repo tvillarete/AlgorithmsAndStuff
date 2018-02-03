@@ -54,65 +54,6 @@ public class MatrixProduct {
       return C;
    }
 
-   public static int[][] matrixProduct_Strassen(int[][] A, int[][] B) {
-      try {
-         checkValid(A, B);
-         int n = A.length;
-         matrixProduct_Strassen(A, B, 0, 0, 0, 0, n);
-      } catch (IllegalArgumentException e) {
-         System.out.println("Requirements not satisfied");
-         System.exit(1);
-      }
-   }
-
-   private static int[][] matrixProduct_Strassen(int[][] A, int[][] B,
-    int rowA, int colA, int rowB, int colB, int n) {
-      int[][] C = new int[n][n];   // Product matrix to return
-      int[][] S1, S2, S3, S4, S5, S6, S7, S8, S9, S10 = new int[n/2][n/2];
-      int[][] P1, P2, P3, P4, P5, P6, P7 = new int[n/2][n/2];
-
-      S1 = strassSub(B, B, 0, 1, 1, 1, n); // Need to substitute with rowA, colA, etc.
-      S2 = strassAdd(A, A, 0, 0, 0, 1, n); // Also don't know size of n
-      S3 = strassAdd(A, A, 1, 0, 1, 1, n);
-      S4 = strassSub(B, B, 1, 0, 0, 0, n);
-      S5 = strassAdd(A, A, 0, 0, 1, 1, n);
-      S6 = strassAdd(B, B, 0, 0, 1, 1, n);
-      S7 = strassSub(A, A, 0, 1, 1, 1, n);
-      S8 = strassAdd(B, B, 1, 0, 1, 1, n);
-      S9 = strassSub(A, A, 0, 0, 1, 0, n);
-      S10 = strassAdd(B, B, 0, 0, 0, 1, n);
-
-      P1 = matrixProduct_Strassen(A, S1, 0, 0, 0, 0, n);
-      P2 = matrixProduct_Strassen();
-      P3 = matrixProduct_Strassen();
-      P4 = matrixProduct_Strassen();
-      P5 = matrixProduct_Strassen();
-      P6 = matrixProduct_Strassen();
-      P7 = matrixProduct_Strassen();
-
-      C[0][0] = //P5 + P4 - P2 + P6;
-      C[0][1] = // P1 + P2;
-      C[1][0] = // P3 + P4;;
-      C[1][1] = //P5 + P1 - P3 - P7;
-
-      return C;
-   }
-
-   private static void strassAdd(int[][] S, int[][] A, int[][] B, int rowA, int colA,
-    int rowB, int colB, int n) {
-      for (int i=0; i<n; i++) {
-         for (int j=0; j<n; j++) {
-            S[i + rowC][j + colC] = A[i][j] + B[i][j];
-         }
-      }
-
-   }
-
-   private static void strassSub(int[][] S, int[][] A, int[][] B, int rowA, int colA,
-    int rowB, int colB, int n) {
-
-   }
-
    private static void sumMatrix(int[][] C, int[][] A, int[][] B, int rowC, int colC) {
       int n = A.length;
       for (int i=0; i<n; i++) {
@@ -122,17 +63,133 @@ public class MatrixProduct {
       }
    }
 
-   private static void diffMatrix(int[][] C, int[][] A, int[][] B, int rowC, int colC) {
+   public static int[][] matrixProduct_Strassen(int[][] A, int[][] B) {
+      try {
+         checkValid(A, B);
+         int n = A.length;
+         int[][] C = strassenRec(A, B);
+         return C;
+      } catch (IllegalArgumentException e) {
+         System.out.println("Requirements not satisfied");
+         System.exit(1);
+      }
+      return B;
+   }
+
+    private static int [][] strassenRec(int [][] A, int [][] B) {
       int n = A.length;
-      for (int i=0; i<n; i++) {
-         for (int j=0; j<n; j++) {
-            C[i + rowC][j + colC] = A[i][j] - B[i][j];
+      int [][] result = new int[n][n];
+      int [][] c = new int[n][n];
+      int newSize = n/2;
+
+      if((n%2 != 0 ) && (n !=1)) {
+         return getBaseCase(A, B, result, n);
+      } if(n == 1) {
+         result[0][0] = A[0][0] * B[0][0];
+      } else {
+         int [][] A11 = new int[newSize][newSize];
+         int [][] A12 = new int[newSize][newSize];
+         int [][] A21 = new int[newSize][newSize];
+         int [][] A22 = new int[newSize][newSize];
+         int [][] B11 = new int[newSize][newSize];
+         int [][] B12 = new int[newSize][newSize];
+         int [][] B21 = new int[newSize][newSize];
+         int [][] B22 = new int[newSize][newSize];
+
+         // Perform matrix operations
+         strassDiv(A, A11, 0 , 0);
+         strassDiv(A, A12, 0 , newSize);
+         strassDiv(A, A21, newSize, 0);
+         strassDiv(A, A22, newSize, newSize);
+         strassDiv(B, B11, 0 , 0);
+         strassDiv(B, B12, 0 , newSize);
+         strassDiv(B, B21, newSize, 0);
+         strassDiv(B, B22, newSize, newSize);
+
+         // Perform 7 multiplications on quadrants
+         int [][] P1 = strassenRec(strassAdd(A11, A22), strassAdd(B11, B22));
+         int [][] P2 = strassenRec(strassAdd(A21, A22), B11);
+         int [][] P3 = strassenRec(A11, strassSubtract(B12, B22));
+         int [][] P4 = strassenRec(A22, strassSubtract(B21, B11));
+         int [][] P5 = strassenRec(strassAdd(A11, A12), B22);
+         int [][] P6 = strassenRec(strassSubtract(A21, A11), strassAdd(B11, B12));
+         int [][] P7 = strassenRec(strassSubtract(A12, A22), strassAdd(B21, B22));
+
+         // Compute C quadrants
+         int [][] C11 = strassAdd(strassSubtract(strassAdd(P1, P4), P5), P7);
+         int [][] C12 = strassAdd(P3, P5);
+         int [][] C21 = strassAdd(P2, P4);
+         int [][] C22 = strassAdd(strassSubtract(strassAdd(P1, P3), P2), P6);
+
+         getResult(C11, result, 0 , 0);
+         getResult(C12, result, 0 , newSize);
+         getResult(C21, result, newSize, 0);
+         getResult(C22, result, newSize, newSize);
+      }
+      return result;
+   }
+
+   private static int[][] getBaseCase(int[][] A, int[][] B, int[][] result, int n) {
+      int[][] A1, B1, C1;
+      int n1 = n+1;
+      A1 = new int[n1][n1];
+      B1 = new int[n1][n1];
+      C1 = new int[n1][n1];
+
+      for(int i=0; i<n; i++)
+         for(int j=0; j<n; j++) {
+            A1[i][j] = A[i][j];
+            B1[i][j] = B[i][j];
+         }
+      C1 = strassenRec(A1, B1);
+      for(int i=0; i<n; i++)
+         for(int j=0; j<n; j++)
+            result[i][j] =C1[i][j];
+      return result;
+
+   }
+
+   private static int [][] strassAdd(int [][] A, int [][] B) {
+      int n = A.length;
+      int [][] matrix = new int[n][n];
+
+      for(int row=0; row<n; row++) {
+         for(int col=0; col<n; col++) {
+            matrix[row][col] = A[row][col] + B[row][col];
+         }
+      }
+      return matrix;
+   }
+
+   private static int [][] strassSubtract(int [][] A, int [][] B) {
+      int n = A.length;
+      int [][] matrix = new int[n][n];
+
+      for(int row=0; row<n; row++) {
+         for(int col=0; col<n; col++) {
+            matrix[row][col] = A[row][col] - B[row][col];
+         }
+      }
+      return matrix;
+   }
+
+   private static void strassDiv(int[][] A, int[][] B, int rowB, int colB) {
+      for(int row1 = 0, row2= rowB; row1 < B.length; row1++, row2++) {
+         for(int col1 = 0, col2=colB; col1< B.length; col1++, col2++) {
+            B[row1][col1] = A[row2][col2];
          }
       }
    }
 
+   private static void getResult(int[][] A, int[][] B, int rowB, int colB) {
+      for(int row1 = 0, row2= rowB; row1 < A.length; row1++, row2++) {
+         for(int col1 = 0, col2=colB; col1<A.length; col1++, col2++) {
+            B[row2][col2] = A[row1][col1];
+         }
+      }
+   }
 
-   private static void printMatrix(int[][] arr) {
+    private static void printMatrix(int[][] arr) {
       int row = arr.length;
       int col = arr[0].length;
       System.out.println();

@@ -1,10 +1,10 @@
 #!/bin/bash
 for testInput in *.txt; do
    name=${testInput%.txt}
+   echo "======================================="
    echo $name.txt $name.expect
    #java < $testInput > $name.out
    java Application <<< "$name.txt" > $name.expect
-   echo "======================================="
    cat $name.expect
    #diff -q $name.out $name.expect
 done
