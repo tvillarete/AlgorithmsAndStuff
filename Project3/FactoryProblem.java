@@ -29,7 +29,44 @@ public class FactoryProblem {
       int[] a2 = new int[n];
       int[] t1 = new int[n-1];
       int[] t2 = new int[n-1];
+      printStuff(file, n, e, x, a1, a2, t1, t2);
 
+      int fastestTime = 0;
+      int[] station = new int[n];
+
+      for (int i=0; i<n-1; i++) {
+         if (i == 0) {
+            if (a1[i] < a2[i]) {
+               fastestTime = a1[i];
+               station[i] = 1;
+            } else {
+               fastestTime = a2[i];
+               station[i] = 2;
+            }
+         } else {
+            if (station[i] == 1) {
+               if (a1[i+1] < a2[i+1] + t2[i]) {
+                  fastestTime += a1[i+1];
+                  station[i] = 1;
+               } else {
+                  fastestTime += (a2[i+1] + t2[i]);
+                  station[i] = 2;
+               }
+            } else {
+               if (a2[i+1] < a1[i+1] + t1[i]) {
+                  fastestTime += a2[i+1];
+                  station[i] = 1;
+               } else {
+                  fastestTime += (a1[i+1] + t1[i]);
+                  station[i] = 2;
+               }
+            }
+         }
+      }
+      System.out.println("Fastest time: "+ fastestTime);
+   }
+
+   private static void printStuff(Scanner file, int n, int[] e, int[] x, int[] a1, int[] a2, int[] t1, int[] t2) {
       System.out.println("n is " + n);
       for (int i=0;i<2;i++) {
          e[i] = file.nextInt();
@@ -66,6 +103,7 @@ public class FactoryProblem {
       }
       System.out.println("======t2=======");
       printArr(t2);
+
    }
 
    private static void printArr(int[] arr) {
