@@ -34,38 +34,59 @@ public class FactoryProblem {
       int fastestTime = 0;
       int[] station = new int[n];
 
-      for (int i=0; i<n-1; i++) {
+      for (int i=0; i<n; i++) {
+         System.out.println("current time: " + fastestTime);
          if (i == 0) {
             if (a1[i] < a2[i]) {
-               fastestTime = a1[i];
+               fastestTime = a1[i] + e[0];
                station[i] = 1;
-            } else {
-               fastestTime = a2[i];
+            } 
+            else {
+               fastestTime = a2[i] + e[1];
                station[i] = 2;
             }
-         } else {
+         } 
+         else {
+            if (station[i-1] == 1) {
+               if (a1[i] < a2[i] + t1[i-1]) {
+                  fastestTime += a1[i];
+                  station[i] = 1;
+               } 
+               else {
+                  fastestTime += (a2[i] + t1[i-1]);
+                  station[i] = 2;
+               }
+            } 
+            else {
+               if (a2[i] < (a1[i] + t2[i-1])) {
+                  fastestTime += a2[i];
+                  station[i] = 2;
+               } 
+               else {
+                  fastestTime += (a1[i] + t2[i-1]);
+                  station[i] = 1;
+               }
+            }
+         }
+         if (i == 5) {
             if (station[i] == 1) {
-               if (a1[i+1] < a2[i+1] + t2[i]) {
-                  fastestTime += a1[i+1];
-                  station[i] = 1;
-               } else {
-                  fastestTime += (a2[i+1] + t2[i]);
-                  station[i] = 2;
-               }
-            } else {
-               if (a2[i+1] < a1[i+1] + t1[i]) {
-                  fastestTime += a2[i+1];
-                  station[i] = 1;
-               } else {
-                  fastestTime += (a1[i+1] + t1[i]);
-                  station[i] = 2;
-               }
+               fastestTime += x[0];
+            }
+            else {
+               fastestTime += x[1];
             }
          }
       }
       System.out.println("Fastest time: "+ fastestTime);
+      printStation(station);
    }
 
+   private static void printStation(int[] arr) {
+      for (int i=0;i<arr.length;i++) {
+         System.out.println("station " + (i+1) + ", line " + arr[i]);
+      }
+   }
+   
    private static void printStuff(Scanner file, int n, int[] e, int[] x, int[] a1, int[] a2, int[] t1, int[] t2) {
       System.out.println("n is " + n);
       for (int i=0;i<2;i++) {
