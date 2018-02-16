@@ -34,6 +34,26 @@ public class GameProblem {
    public static void game(int n, int m, int[][] A) {
       int S[][] = new int[n][m];
 
+      for (int i=0; i<n; i++) {
+         for (int j=0; j<m; j++) {
+
+         }
+         if (i == n && j == m) {
+            // Bottom right square; Exit
+            S[i][j] = A[n][m];
+         }
+         // Last column; move down or exit
+         else if (j == m) {
+            S[i][j] = max(S[i+1][m], 0) + A[i][m];
+         }
+         else if (i == n) {
+            S[i][j] = max(S[n][j+1], 0) + A[n][j];
+         }
+         else {
+            S[i][j] = max(S[i+1][j], S[i][j+1]) + A[i][j];
+         }
+      }
+
       // 𝑖𝑓𝑖=𝑛,𝑗=𝑚 (𝑡ℎ𝑖𝑠 𝑖𝑠 𝑡ℎ𝑒 𝑏𝑜𝑡𝑡𝑜𝑚−𝑟𝑖𝑔ℎ𝑡 𝑠𝑞𝑢𝑎𝑟𝑒: 𝑦𝑜𝑢 𝑐𝑎𝑛 𝑜𝑛𝑙𝑦 𝑒𝑥𝑖𝑡)
       // A[n, m]
       //
@@ -66,6 +86,11 @@ public class GameProblem {
    private static int min(int a, int b) {
       return a < b ? a : b;
    }
+
+   private static int max(int a, int b) {
+      return a > b ? a : b;
+   }
+
 
    private static void printBoard(int[][] A) {
       for (int i=0; i<A.length; i++) {

@@ -30,20 +30,26 @@ public class FactoryProblem {
       int[] t2 = new int[n];
       setupAssemblyLine(file, n, e, x, a1, a2, t1, t2);
 
-      int T1[] = new int[n];
-      int T2[] = new int[n];
+      int f1[] = new int[n];
+      int f2[] = new int[n];
+      int l1[] = new int[n];
+      int l2[] = new int[n];
 
-      T1[0] = e[0] + a1[0];
-      T2[0] = e[1] + a2[0];
+      int station[] = new int[n];
 
-      for (int i=1; i<n; ++i) {
-         T1[i] = min(T1[i-1] + a1[i], T2[i-1] + t2[i] + a1[i]);
-         T2[i] = min(T2[i-1] + a2[i], T1[i-1] + t1[i] + a2[i]);
+      f1[0] = e[0] + a1[0];
+      f2[0] = e[1] + a2[0];
+
+      for (int j=1; j<n; ++j) {
+         f1[j] = min(f1[j-1] + a1[j], f2[j-1] + t2[j] + a1[j]);
+         f2[j] = min(f2[j-1] + a2[j], f1[j-1] + t1[j] + a2[j]);
+         l1[j] = f1[j-1] + a1[j] < f1[j] ? 1 : 2;
+         l2[j] = f2[j-1] + a2[j] < f2[j] ? 1 : 2;
       }
 
-      int fastestTime = min(T1[n-1] + x[0], T2[n-1] + x[1]);
+      int fastestTime = min(f1[n-1] + x[0], f2[n-1] + x[1]);
       System.out.println("Fastest time: "+ fastestTime);
-      //printStation(station);
+      printStation(station);
    }
 
    private static int min(int a, int b) {
