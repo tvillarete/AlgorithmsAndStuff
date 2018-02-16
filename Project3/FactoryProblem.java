@@ -21,64 +21,37 @@ public class FactoryProblem {
       catch (Exception exc) {
          System.out.println("oOps\n");
       }
-      System.out.println("Reading from " + filename);
       int n = file.nextInt();
       int[] e = new int[2];
       int[] x = new int[2];
       int[] a1 = new int[n];
       int[] a2 = new int[n];
-      int[] t1 = new int[n-1];
-      int[] t2 = new int[n-1];
-      printStuff(file, n, e, x, a1, a2, t1, t2);
+      int[] t1 = new int[n];
+      int[] t2 = new int[n];
+      setupAssemblyLine(file, n, e, x, a1, a2, t1, t2);
 
-      int fastestTime = 0;
-      int[] station = new int[n];
+      int T1[] = new int[n];
+      int T2[] = new int[n];
 
-      for (int i=0; i<n; i++) {
-         System.out.println("current time: " + fastestTime);
-         if (i == 0) {
-            if (a1[i] < a2[i]) {
-               fastestTime = a1[i] + e[0];
-               station[i] = 1;
-            } 
-            else {
-               fastestTime = a2[i] + e[1];
-               station[i] = 2;
-            }
-         } 
-         else {
-            if (station[i-1] == 1) {
-               if (a1[i] < a2[i] + t1[i-1]) {
-                  fastestTime += a1[i];
-                  station[i] = 1;
-               } 
-               else {
-                  fastestTime += (a2[i] + t1[i-1]);
-                  station[i] = 2;
-               }
-            } 
-            else {
-               if (a2[i] < (a1[i] + t2[i-1])) {
-                  fastestTime += a2[i];
-                  station[i] = 2;
-               } 
-               else {
-                  fastestTime += (a1[i] + t2[i-1]);
-                  station[i] = 1;
-               }
-            }
-         }
-         if (i == 5) {
-            if (station[i] == 1) {
-               fastestTime += x[0];
-            }
-            else {
-               fastestTime += x[1];
-            }
-         }
+      T1[0] = e[0] + a1[0];
+      T2[0] = e[1] + a2[0];
+      int station[] = new int[n];
+      station[0] = T1[0] < T2[0] ? 1 : 2;
+
+      for (int i=1; i<n; ++i) {
+         T1[i] = min(T1[i-1] + a1[i], T2[i-1] + t2[i] + a1[i]);
+         T2[i] = min(T2[i-1] + a2[i], T1[i-1] + t1[i] + a2[i]);
+         station[i] = T1[i] < T2[i] ? 1 : 2;
       }
-      System.out.println("Fastest time: "+ fastestTime);
+
+      int fastestTime = min(T1[n-1] + x[0], T2[n-1] + x[1]);
+      System.out.println("Fastest time is: "+ fastestTime);
+      System.out.println("The optimal route is:");
       printStation(station);
+   }
+
+   private static int min(int a, int b) {
+      return a < b ? a : b;
    }
 
    private static void printStation(int[] arr) {
@@ -86,45 +59,33 @@ public class FactoryProblem {
          System.out.println("station " + (i+1) + ", line " + arr[i]);
       }
    }
-   
-   private static void printStuff(Scanner file, int n, int[] e, int[] x, int[] a1, int[] a2, int[] t1, int[] t2) {
-      System.out.println("n is " + n);
+
+   private static void setupAssemblyLine(Scanner file, int n, int[] e, int[] x, int[] a1, int[] a2, int[] t1, int[] t2) {
       for (int i=0;i<2;i++) {
          e[i] = file.nextInt();
       }
-      System.out.println("E array: ");
-      printArr(e);
 
       for (int i=0;i<2;i++) {
          x[i] = file.nextInt();
       }
-      System.out.println("X array: ");
-      printArr(x);
 
       for (int i=0;i<n;i++) {
          a1[i] = file.nextInt();
       }
-      System.out.println("======a1=======");
-      printArr(a1);
 
       for (int i=0;i<n;i++) {
          a2[i] = file.nextInt();
       }
-      System.out.println("======a2=======");
-      printArr(a2);
 
-      for (int i=0;i<n-1;i++) {
+      t1[0] = 0;
+      for (int i=1;i<n;i++) {
          t1[i] = file.nextInt();
       }
-      System.out.println("======t1=======");
-      printArr(t1);
 
-      for (int i=0;i<n-1;i++) {
+      t2[0] = 0;
+      for (int i=1;i<n;i++) {
          t2[i] = file.nextInt();
       }
-      System.out.println("======t2=======");
-      printArr(t2);
-
    }
 
    private static void printArr(int[] arr) {
