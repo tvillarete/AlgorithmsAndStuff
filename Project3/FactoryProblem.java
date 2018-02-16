@@ -35,19 +35,15 @@ public class FactoryProblem {
 
       T1[0] = e[0] + a1[0];
       T2[0] = e[1] + a2[0];
-      int station[] = new int[n];
-      station[0] = T1[0] < T2[0] ? 1 : 2;
 
       for (int i=1; i<n; ++i) {
          T1[i] = min(T1[i-1] + a1[i], T2[i-1] + t2[i] + a1[i]);
          T2[i] = min(T2[i-1] + a2[i], T1[i-1] + t1[i] + a2[i]);
-         station[i] = T1[i] < T2[i] ? 1 : 2;
       }
 
       int fastestTime = min(T1[n-1] + x[0], T2[n-1] + x[1]);
-      System.out.println("Fastest time is: "+ fastestTime);
-      System.out.println("The optimal route is:");
-      printStation(station);
+      System.out.println("Fastest time: "+ fastestTime);
+      //printStation(station);
    }
 
    private static int min(int a, int b) {
