@@ -26,45 +26,115 @@ public class GameProblem {
       int A[][] = new int[n][m];
 
       setupGame(file, n, m, A);
-      System.out.println("n: "+n+" m: " +m);
-      printBoard(A);
       game(n, m, A);
    }
 
    public static void game(int n, int m, int[][] A) {
       int S[][] = new int[n][m];
+      char R[][] = new char[n][m];
 
       for (int i=0; i<n; i++) {
          for (int j=0; j<m; j++) {
-
-         }
-         if (i == n && j == m) {
-            // Bottom right square; Exit
-            S[i][j] = A[n][m];
-         }
-         // Last column; move down or exit
-         else if (j == m) {
-            S[i][j] = max(S[i+1][m], 0) + A[i][m];
-         }
-         else if (i == n) {
-            S[i][j] = max(S[n][j+1], 0) + A[n][j];
-         }
-         else {
-            S[i][j] = max(S[i+1][j], S[i][j+1]) + A[i][j];
+            if (i == n-1 && j == m-1) {
+                        // Exit
+               R[i][j] = 'e';
+            }
+            else if (j == m-1) {
+                             // Down     // Exit
+               R[i][j] = A[i+1][m-1] >= 0 ? 'd' : 'e';
+            }
+            else if (i == n-1) {
+                             // Right    // Exit
+               R[i][j] = A[n-1][j+1] >= 0 ? 'r' : 'e';
+            }
+            else {
+                             // Down     // Right
+               R[i][j] = A[i+1][j] >= A[i][j+1] ? 'd' : 'r';
+            }
          }
       }
+      getBestScore(A, R, S);
+      findMaxIndices(R, S);
+   }
 
-      // 𝑖𝑓𝑖=𝑛,𝑗=𝑚 (𝑡ℎ𝑖𝑠 𝑖𝑠 𝑡ℎ𝑒 𝑏𝑜𝑡𝑡𝑜𝑚−𝑟𝑖𝑔ℎ𝑡 𝑠𝑞𝑢𝑎𝑟𝑒: 𝑦𝑜𝑢 𝑐𝑎𝑛 𝑜𝑛𝑙𝑦 𝑒𝑥𝑖𝑡)
-      // A[n, m]
-      //
-      // 𝑖𝑓 𝑗=𝑚 (𝑡ℎ𝑖𝑠 𝑖𝑠 𝑡ℎ𝑒 𝑙𝑎𝑠𝑡 𝑐𝑜𝑙𝑢𝑚𝑛: 𝑚𝑜𝑣𝑒 𝑑𝑜𝑤𝑛 𝑜𝑟 𝑒𝑥𝑖𝑡)
-      // max{S[i+1, m], 0} + A[i, m]
-      //
-      // 𝑖𝑓 𝑖=𝑛 (𝑡ℎ𝑖𝑠 𝑖𝑠 𝑡ℎ𝑒 𝑙𝑎𝑠𝑡 𝑟𝑜𝑤: 𝑚𝑜𝑣𝑒 𝑟𝑖𝑔ℎ𝑡 𝑜𝑟 𝑒𝑥𝑖𝑡)
-      // max{S[n, j+1], 0} + A[n, j]
-      //
-      // 𝑜𝑡ℎ𝑒𝑟𝑤𝑖𝑠𝑒 (𝑐ℎ𝑒𝑐𝑘 𝑡ℎ𝑒 𝑏𝑒𝑡𝑡𝑒𝑟: 𝑚𝑜𝑣𝑒 𝑑𝑜𝑤𝑛 𝑜𝑟 𝑟𝑖𝑔ℎ𝑡)
-      // max{S[i+1, j], S[i, j+1]} + A[i, j]
+   private static int getBestScore(int[][] A, char[][] R, int[][] S) {
+      for (int i=0; i<A.length; i++) {
+         for (int j=0; j<A[0].length; j++) {
+            S[i][j] = calculatePathSum(A, R, i, j);
+         }
+      }
+      return 0;
+   }
+
+   private static int calculatePathSum(int[][] A, char[][] R, int i, int j) {
+      int score = A[i][j];
+      int m = i, n = j;
+
+      while (R[m][n] != 'e') {
+         switch (R[m][n]) {
+            case 'd':
+               m++;
+               break;
+            case 'r':
+               n++;
+               break;
+         }
+         score += A[m][n];
+      }
+
+      return score;
+   }
+
+   private static void findMaxIndices(char[][] R, int[][] S) {
+      int max = 0;
+      int m = 0, n = 0;
+      for (int i=0; i<S.length; i++) {
+         for (int j=0; j<S[0].length; j++) {
+            if (S[i][j] > max) {
+               max = S[i][j];
+               m = i;
+               n = j;
+            }
+         }
+      }
+      System.out.println("Best score: "+S[m][n]);
+      printRoute(R, m, n);
+   }
+
+   private static void printRoute(char[][] R, int i, int j) {
+      int m = i, n = j;
+      System.out.print("Best route: ["+(m+1)+","+(n+1)+"] to ");
+      while (R[m][n] != 'e') {
+         switch (R[m][n]) {
+            case 'd':
+               m++;
+               break;
+            case 'r':
+               n++;
+               break;
+         }
+         System.out.print("["+(m+1)+","+(n+1)+"] to ");
+      }
+      System.out.println("exit");
+
+   }
+
+   private static void print2d(int arr[][]) {
+      for (int i=0; i<arr.length; i++) {
+         for (int j=0; j<arr[0].length; j++) {
+            System.out.print(arr[i][j] + " ");
+         }
+         System.out.println();
+      }
+   }
+
+   private static void print2d(char arr[][]) {
+      for (int i=0; i<arr.length; i++) {
+         for (int j=0; j<arr[0].length; j++) {
+            System.out.print(arr[i][j] + " ");
+         }
+         System.out.println();
+      }
    }
 
    private static void setupGame(Scanner file, int n, int m, int[][] A) {

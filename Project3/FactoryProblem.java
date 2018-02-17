@@ -34,6 +34,7 @@ public class FactoryProblem {
       int f2[] = new int[n];
       int l1[] = new int[n];
       int l2[] = new int[n];
+      //int lstar = new int[n];
 
       int station[] = new int[n];
 
@@ -43,9 +44,18 @@ public class FactoryProblem {
       for (int j=1; j<n; ++j) {
          f1[j] = min(f1[j-1] + a1[j], f2[j-1] + t2[j] + a1[j]);
          f2[j] = min(f2[j-1] + a2[j], f1[j-1] + t1[j] + a2[j]);
-         l1[j] = f1[j-1] + a1[j] < f1[j] ? 1 : 2;
-         l2[j] = f2[j-1] + a2[j] < f2[j] ? 1 : 2;
+         //l1[j] = f1[j-1] + a1[j] < f1[j] ? 1 : 2;
+         //l2[j] = f2[j-1] + a2[j] < f2[j] ? 1 : 2;
       }
+
+      /*
+      for (int j=n-1; j>=0; --j) {
+         l1[j] = min(f1[j-1] + a1[j], f2[j-1] + t2[j] + a1[j]);
+         l2[j] = min(f2[j-1] + a2[j], f1[j-1] + t1[j] + a2[j]);
+         l1[j] = (f1[j-1] + a1[j]) < (f2[j-1] + t2[j] + a1[j]) ? 1 : 2;
+         l2[j] = (f2[j-1] + a2[j]) < (f2[j-1] + t1[j] + a2[j]) ? 1 : 2;
+      }
+      */
 
       int fastestTime = min(f1[n-1] + x[0], f2[n-1] + x[1]);
       System.out.println("Fastest time: "+ fastestTime);
