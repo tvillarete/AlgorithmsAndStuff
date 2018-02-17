@@ -2,8 +2,8 @@
  * Tanner Villarete (tvillare)
  * Daniel Kirkpatrick (djkirkpa)
  * CSC 349
- * 2/2/18
- * Project 2
+ * 2/16/18
+ * Project 3
  */
 
 import java.io.*;
@@ -34,7 +34,7 @@ public class FactoryProblem {
       int f2[] = new int[n];
       int l1[] = new int[n];
       int l2[] = new int[n];
-      //int lstar = new int[n];
+      int lstar = 1;
 
       int station[] = new int[n];
 
@@ -44,21 +44,25 @@ public class FactoryProblem {
       for (int j=1; j<n; ++j) {
          f1[j] = min(f1[j-1] + a1[j], f2[j-1] + t2[j] + a1[j]);
          f2[j] = min(f2[j-1] + a2[j], f1[j-1] + t1[j] + a2[j]);
-         //l1[j] = f1[j-1] + a1[j] < f1[j] ? 1 : 2;
-         //l2[j] = f2[j-1] + a2[j] < f2[j] ? 1 : 2;
+         l1[j] = (f1[j-1] + a1[j]) < (f2[j-1] + t2[j] + a1[j]) ? 1 : 2;
+         l2[j] = (f2[j-1] + a2[j]) < (f1[j-1] + t1[j] + a2[j]) ? 2 : 1;
       }
 
-      /*
-      for (int j=n-1; j>=0; --j) {
-         l1[j] = min(f1[j-1] + a1[j], f2[j-1] + t2[j] + a1[j]);
-         l2[j] = min(f2[j-1] + a2[j], f1[j-1] + t1[j] + a2[j]);
-         l1[j] = (f1[j-1] + a1[j]) < (f2[j-1] + t2[j] + a1[j]) ? 1 : 2;
-         l2[j] = (f2[j-1] + a2[j]) < (f2[j-1] + t1[j] + a2[j]) ? 1 : 2;
+      for (int j=n-1; j>0; j--) {
+         if (lstar == 1) {
+             station[j-1] = l1[j];
+             lstar = l1[j];
+         } else {
+            station[j-1] = l2[j];
+            lstar = l2[j];
+         }
       }
-      */
+      station[n-1] = (f1[n-1] + x[0]) < (f2[n-1] + x[1]) ? 1 : 2;
 
       int fastestTime = min(f1[n-1] + x[0], f2[n-1] + x[1]);
-      System.out.println("Fastest time: "+ fastestTime);
+      System.out.println("Fastest time is: "+ fastestTime);
+      System.out.println();
+      System.out.println("The optimal route is: ");
       printStation(station);
    }
 

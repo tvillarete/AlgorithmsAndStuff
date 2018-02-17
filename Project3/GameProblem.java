@@ -2,8 +2,8 @@
  * Tanner Villarete (tvillare)
  * Daniel Kirkpatrick (djkirkpa)
  * CSC 349
- * 2/2/18
- * Project 2
+ * 2/16/18
+ * Project 3
  */
 
 import java.io.*;
