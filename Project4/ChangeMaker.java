@@ -17,17 +17,32 @@ public class ChangeMaker {
       if (n == 0) {
          System.exit(0);
       }
+      int res[] = change_DP(n, coins);
+      printArr(res);
+   }
+
+   public static int[] change_DP(int n, int[] d) {
+      int[] coins = new int[d.length];
+      int centsLeft = n;
+
+      for (int i=0; i<d.length; i++) {
+         int count = 0, numCoins = 0, total = 0;
+         int prevNumCoins = numCoins;
+
+         while (count <= centsLeft) {
+            prevNumCoins = numCoins;
+            count += d[i];
+            numCoins++;
+         }
+         coins[i] = prevNumCoins;
+         centsLeft -= (coins[i] * d[i]);
+      }
+      return coins;
    }
 
    private static void printArr(int[] arr) {
       for (int i=0; i<arr.length; i++) {
          System.out.println(arr[i]);
       }
-   }
-
-   public static int[] change_DP(int n, int[] d) {
-      int[] coins = new int[n];
-
-      return coins;
    }
 }
