@@ -18,7 +18,25 @@ public class ChangeMaker {
          System.exit(0);
       }
       int res[] = change_DP(n, coins);
-      printArr(res);
+      //printArr(res);
+      printRes(n,res,coins);
+   }
+
+   private static void printRes(int n,int[] res,int[] d) {
+      int count=0;
+      System.out.println("DP algorithm results");
+      System.out.println("Amount: " + n);
+      System.out.print("Optimal distribution: ");
+      for (int i=0; i < res.length;i++) {
+         if (res[i] != 0) {
+            if (count != 0) {
+               System.out.print(" + ");
+            }
+            System.out.print(res[i]+"*"+d[i]+"c");
+            count += res[i];
+         }
+      }
+      System.out.println("\nOptimal coin count: " + count);
    }
 
    public static int[] change_DP(int n, int[] d) {
