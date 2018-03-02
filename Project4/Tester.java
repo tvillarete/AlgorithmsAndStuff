@@ -21,14 +21,24 @@ public class Tester {
       //returns # of matches as int
       int matches = 0;
       for (int i=1;i<=200;i++) {
-         int temp1 = 0;
-         int temp2 = 0;
-         temp1 = ChangeMaker.change_DP(i,d);
-         temp2 = ChangeMaker.change_greedy(i,d);
+         int temp1;
+         int temp2;
+         temp1 = getCount(ChangeMaker.change_DP(i,d));
+         temp2 = getCount(ChangeMaker.change_greedy(i,d));
          if (temp1 == temp2)
             matches++;
       }
       return matches;
+   }
+
+   private static int getCount(int[] arr) {
+      int count = 0;
+      for (int i=0;i<arr.length;i++) {
+         if (arr[i] != 0) {
+            count += arr[i];
+         }
+      }
+      return count;
    }
 
    private static void printResults(int[] matches) {
