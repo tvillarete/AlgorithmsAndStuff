@@ -44,7 +44,7 @@ public class ChangeMaker {
    public static int[] change_DP(int n, int[] d) {
       int[] coins = new int[d.length];
       int centsLeft = n;
-
+      /*
       for (int i=0; i<d.length; i++) {
          int count = 0, numCoins = 0, total = 0;
          int prevNumCoins = numCoins;
@@ -56,8 +56,44 @@ public class ChangeMaker {
          }
          coins[i] = prevNumCoins;
          centsLeft -= (coins[i] * d[i]);
+      }*/
+
+      int[][] sol = new int[n+1][];
+      int[] best = new int[n+1];
+
+      sol[0] = new int[n];
+      best[0] = 0;
+
+      for (int i = 1; i <= n; i++) {
+         solveN(i,d,sol,best);
       }
-      return coins;
+      return best;
+   }
+
+   private static void solveN(int n, int[] d, int[][] sol, int[] best) {
+      int numCoins = d.length;
+
+      for (int i=0; i< numCoins;i++) {
+         if (d[i] == n) {
+            sol[n] = new int[numCoins];
+            sol[n][i] = 1;
+            best[i] = 1;
+            return;
+         }
+         else {
+            int least = Integer.MAX_VALUE;
+            for (int j = 1; j< n; j++) {
+               int coinCount = best[j] + best[n-1];
+               if (coinCount < least) {
+                  least = coinCount;
+                  best[n] = coinCount;
+                  //sol[n] 
+                  sol[n] = sol[i] + sol[n-1];
+               }
+            }
+         }
+
+      }
    }
 
    public static int[] change_greedy(int n, int[] d) {
