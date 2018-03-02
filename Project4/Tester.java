@@ -23,8 +23,8 @@ public class Tester {
       for (int i=1;i<=200;i++) {
          int temp1 = 0;
          int temp2 = 0;
-         //temp1 = change_DP(i,d);
-         //temp2 = change_greedy(i,d);
+         temp1 = ChangeMaker.change_DP(i,d);
+         temp2 = ChangeMaker.change_greedy(i,d);
          if (temp1 == temp2)
             matches++;
       }

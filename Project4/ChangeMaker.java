@@ -17,14 +17,16 @@ public class ChangeMaker {
       if (n == 0) {
          System.exit(0);
       }
-      int res[] = change_DP(n, coins);
-      //printArr(res);
-      printRes(n,res,coins);
+      int DPres[] = change_DP(n, coins);
+      int GRres[] = change_greedy(n, coins);
+      System.out.println("\nDP algorithm results");
+      printRes(n,DPres,coins);
+      System.out.println("\nGreedy algorithm results");
+      printRes(n,GRres,coins);
    }
 
    private static void printRes(int n,int[] res,int[] d) {
       int count=0;
-      System.out.println("DP algorithm results");
       System.out.println("Amount: " + n);
       System.out.print("Optimal distribution: ");
       for (int i=0; i < res.length;i++) {
@@ -54,6 +56,25 @@ public class ChangeMaker {
          }
          coins[i] = prevNumCoins;
          centsLeft -= (coins[i] * d[i]);
+      }
+      return coins;
+   }
+
+   public static int[] change_greedy(int n, int[] d) {
+      int remaining = n, choice = -1, spot = 0, numCoins = 0;
+      int prevChoice = -1;
+      int prevDenom = -1;
+      int[] coins = new int[d.length];
+
+      while (remaining > 0 && spot < d.length) {
+         for (int i=0; i<d.length; i++) {
+            while (d[i] <= remaining) {
+               numCoins++;
+               remaining -= d[i];
+            }
+            coins[i] = numCoins;
+            numCoins = 0;
+         }
       }
       return coins;
    }
