@@ -1,3 +1,11 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 3/2/18
+ * Project 4
+ */
+
 public class Tester {
    //130,72
    public static void main(String[] args) {
@@ -12,7 +20,7 @@ public class Tester {
       matches[0] = runTests(set1);
       matches[1] = runTests(set2);
       matches[2] = runTests(set3);
-      matches[3] = runTests(set5);
+      matches[3] = runTests(set4);
       matches[4] = runTests(set5);
       printResults(matches);
    }
