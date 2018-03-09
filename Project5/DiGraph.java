@@ -76,8 +76,40 @@ public class DiGraph {
             indegrees[it.next()] += 1;
          }
       }
-
       return indegrees;
+   }
+
+   public int[] topSort() throws IllegalArgumentException {
+      Iterator<Integer> it;
+      int N = adj.length;
+      int indegrees[] = indegrees();
+      int answer[] = new int[N];
+      int u;
+      PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+
+      for (u = 0;  u < N; u++) {
+         if (indegrees[u] == 0) {
+            queue.add(u);
+         }
+      }
+      int i = 0;
+      while (queue.peek() != null) {
+         u = queue.remove();
+         answer[i] = u;
+         i++;
+         it = adj[u].iterator();
+         while (it.hasNext()) {
+            int v = it.next();
+            indegrees[v]--;
+            if (indegrees[v] == 0) {
+               queue.add(v);
+            }
+         }
+      }
+      if (i != N) {
+         throw new IllegalArgumentException("Error: This is a cyclical graph");
+      }
+      return answer;
    }
 
 }

@@ -22,7 +22,6 @@ public class DiGraphTest {
       while(choice != 'q') {
          System.out.println("Please enter a menu choice: ");
          choice = scan.next().charAt(0);
-         System.out.println("Choice was: " + choice );
          useChoice(scan,choice, graph);
       }
    }
@@ -59,6 +58,13 @@ public class DiGraphTest {
          case 'p':
             //print graph
             graph.print();
+            break;
+         case 't':
+            int topSorted[] = graph.topSort();
+            System.out.println("Topologically sorted vertices: ");
+            for (int i=0; i<topSorted.length; i++) {
+               System.out.println(topSorted[i]+1);
+            }
             break;
          case 'q':
             System.out.println("Quitting");
