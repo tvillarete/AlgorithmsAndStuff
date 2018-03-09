@@ -29,7 +29,6 @@ public class DiGraph {
    }
 
    public int edgeCount() {
-      Iterator<Integer> it;
       int count = 0;
 
       for (int i=0; i < adj.length; i++) {
@@ -58,4 +57,27 @@ public class DiGraph {
          System.out.println();
       }
    }
+
+   // PART 2
+
+   private int[] indegrees() {
+      Iterator<Integer> it;
+      int indegrees[] = new int[adj.length];
+      int count;
+
+      // Initialize all array spots to zero
+      for (int i=0; i<adj.length; i++) {
+         indegrees[i] = 0;
+      }
+
+      for (int i=0; i<adj.length; i++) {
+         it = adj[i].iterator();
+         while (it.hasNext()) {
+            indegrees[it.next()] += 1;
+         }
+      }
+
+      return indegrees;
+   }
+
 }
