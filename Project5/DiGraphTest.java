@@ -10,42 +10,41 @@ public class DiGraphTest {
       DiGraph graph = new DiGraph(vertices);
       System.out.println("There are " + vertices + " vertices\n");
 
-      
-      System.out.println("Choose one of the following operations:\n" + 
+
+      System.out.println("Choose one of the following operations:\n" +
          "- add edge (enter a)\n" +
          "- delete edge (enter d)\n" +
          "- edge count (enter e)\n" +
          "- vertex count (enter v)\n" +
          "- print graph (enter p)\n" +
          "- Quit (enter q)\n");
-     
+
       while(choice != 'q') {
          System.out.println("Please enter a menu choice: ");
          choice = scan.next().charAt(0);
          System.out.println("Choice was: " + choice );
-         useChoice(scan,choice);
+         useChoice(scan,choice, graph);
       }
    }
 
-   private static void useChoice(Scanner s,char c,DiGraph graph) {
+   private static void useChoice(Scanner s,char c, DiGraph graph) {
+      int from = 0;
+      int to = 0;
       switch (c) {
          case 'a':
             //add edge
             System.out.println("Please identify from and to vertices");
-            int from = s.nextInt();
-            int to = s.nextInt();
-            
-            graph.addEdge(from,to);
-            System.out.println("add edge");
+            from = s.nextInt();
+            to = s.nextInt();
 
+            graph.addEdge(from,to);
             break;
          case 'd':
             //delete edge
             System.out.println("Please identify from and to vertices");
-            int from = s.nextInt();
-            int to = s.nextInt();
+            from = s.nextInt();
+            to = s.nextInt();
             graph.deleteEdge(from,to);
-            System.out.println("delete edge");
             break;
          case 'e':
             //edge count
@@ -60,7 +59,6 @@ public class DiGraphTest {
          case 'p':
             //print graph
             graph.print();
-            System.out.println("print the graph");
             break;
          case 'q':
             System.out.println("Quitting");
