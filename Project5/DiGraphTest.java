@@ -17,6 +17,10 @@ public class DiGraphTest {
          "- edge count (enter e)\n" +
          "- vertex count (enter v)\n" +
          "- print graph (enter p)\n" +
+         "- is there a path (enter i)\n" +
+         "- length of the path (enter l)\n"+
+         "- shortest path (enter s)\n"+
+         //"- print breadth-first-tree (enter b)\n"+
          "- Quit (enter q)\n");
 
       while(choice != 'q') {
@@ -81,6 +85,38 @@ public class DiGraphTest {
                System.out.println();
             }
             break;
+         case 'i':
+            //is there a path?
+            int vert1,vert2;
+            boolean isPath = false;
+            System.out.println("Please enter 2 vertex numbers");
+            vert1 = s.nextInt()-1;
+            vert2 = s.nextInt()-1;
+            isPath = graph.isTherePath(vert1,vert2);
+            System.out.println("Is there a path?: " + isPath);
+         case 'l':
+            //length of path
+            int vert1,vert2;
+            int lenngth = -1;
+            System.out.println("Please enter 2 vertex numbers");
+            vert1 = s.nextInt()-1;
+            vert2 = s.nextInt()-1;
+            length = graph.lengthOfPath(vert1,vert2);
+            System.out.println("The length from " + vert1 + " to " + vert2 + " is " +length);
+         case 's':
+            //print the shortest path
+            int vert1,vert2;
+           System.out.println("Please enter 2 vertex numbers");
+            vert1 = s.nextInt()-1;
+            vert2 = s.nextInt()-1;
+            graph.printPath(vert1,vert2);
+         /*
+         case 'b':
+            int vert;
+            System.out.println("Please provide a source vertex");
+            vert = s.nextInt()-1;
+            printTree(vert);
+         */
          case 'q':
             System.out.println("Good bye.");
             System.exit(0);
