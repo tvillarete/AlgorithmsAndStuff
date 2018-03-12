@@ -85,31 +85,55 @@ public class DiGraph {
       int indegrees[] = indegrees();
       int answer[] = new int[N];
       int u;
-      PriorityQueue<Integer> queue = new PriorityQueue<Integer>();
+      try {
+         ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
 
-      for (u = 0;  u < N; u++) {
-         if (indegrees[u] == 0) {
-            queue.add(u);
-         }
-      }
-      int i = 0;
-      while (queue.peek() != null) {
-         u = queue.remove();
-         answer[i] = u;
-         i++;
-         it = adj[u].iterator();
-         while (it.hasNext()) {
-            int v = it.next();
-            indegrees[v]--;
-            if (indegrees[v] == 0) {
-               queue.add(v);
+         for (u = 0;  u < N; u++) {
+            if (indegrees[u] == 0) {
+               queue.add(u);
             }
          }
+         int i = 0;
+         while (queue.peek() != null) {
+            u = queue.remove();
+            answer[i] = u;
+            i++;
+            it = adj[u].iterator();
+            while (it.hasNext()) {
+               int v = it.next();
+               indegrees[v]--;
+               if (indegrees[v] == 0) {
+                  queue.add(v);
+               }
+            }
+         }
+         if (i != N) {
+            throw new IllegalArgumentException();
+         }
       }
-      if (i != N) {
-         throw new IllegalArgumentException("Error: This is a cyclical graph");
+      catch (IllegalArgumentException e) {
+         System.out.println("Error: This is a cyclical graph");
+         return null;
       }
       return answer;
    }
+
+   // PART 3
+
+   private class VertexInfo {
+      private int distance;
+      private int predecessor;
+
+      private VertexInfo BFS (int s) {
+
+      }
+
+      public boolean isTherePath(int from, int to) {
+
+      }
+
+
+   }
+
 
 }

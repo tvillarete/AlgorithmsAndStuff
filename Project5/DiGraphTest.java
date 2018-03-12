@@ -5,7 +5,7 @@ public class DiGraphTest {
       Scanner scan = new Scanner(System.in);
       int vertices = 0;
       char choice = 'z';
-      System.out.println("Please enter the number of vertices: ");
+      System.out.println("Enter number of vertices ");
       vertices = scan.nextInt();
       DiGraph graph = new DiGraph(vertices);
       System.out.println("There are " + vertices + " vertices\n");
@@ -21,8 +21,15 @@ public class DiGraphTest {
 
       while(choice != 'q') {
          System.out.println("Please enter a menu choice: ");
-         choice = scan.next().charAt(0);
-         useChoice(scan,choice, graph);
+         String line;
+         while ((line = scan.nextLine()).length() < 1) {
+         }
+         if (line.length() > 1) {
+            System.out.println("Menu choice should be one letter");
+         } else {
+            choice = line.charAt(0);
+            useChoice(scan, choice, graph);
+         }
       }
    }
 
@@ -35,6 +42,7 @@ public class DiGraphTest {
             System.out.println("Please identify from and to vertices");
             from = s.nextInt();
             to = s.nextInt();
+            System.out.println("("+from+","+to+") edge is now added to the graph");
 
             graph.addEdge(from,to);
             break;
@@ -48,12 +56,12 @@ public class DiGraphTest {
          case 'e':
             //edge count
             int edge = graph.edgeCount();
-            System.out.println("Edge count: " + edge);
+            System.out.println("Number of edges is " + edge);
             break;
          case 'v':
             //vertex count
             int count = graph.vertexCount();
-            System.out.println("Vertex count: " + count);
+            System.out.println("Number of vertices is " + count);
             break;
          case 'p':
             //print graph
@@ -61,13 +69,20 @@ public class DiGraphTest {
             break;
          case 't':
             int topSorted[] = graph.topSort();
-            System.out.println("Topologically sorted vertices: ");
-            for (int i=0; i<topSorted.length; i++) {
-               System.out.println(topSorted[i]+1);
+            if (topSorted != null) {
+               System.out.println("Topologically sorted vertices: ");
+               for (int i=0; i<topSorted.length; i++) {
+                  if (i == topSorted.length-1) {
+                     System.out.print(topSorted[i]+1);
+                  } else {
+                     System.out.print(topSorted[i]+1 + ", ");
+                  }
+               }
+               System.out.println();
             }
             break;
          case 'q':
-            System.out.println("Quitting");
+            System.out.println("Good bye.");
             System.exit(0);
          default:
             System.out.println("Invalid choice");
