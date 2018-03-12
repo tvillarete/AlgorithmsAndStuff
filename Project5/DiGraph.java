@@ -215,4 +215,20 @@ public class DiGraph {
          System.out.println((i+1) + ": dist: " + VA[i].distance + " pred: " + VA[i].predecessor);
       }
    }
+
+
+   //PART 4
+   /*
+   private class TreeNode {
+      int vertNum;
+      LinkedList<TreeNode> = new LinkedList<TreeNode>();
+   }
+   private treeNode buildTree(int s) {
+
+   }
+
+   public printTree(int s) {
+
+   }
+   */
 }
