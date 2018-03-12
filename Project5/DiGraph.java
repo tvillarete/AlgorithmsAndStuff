@@ -121,19 +121,71 @@ public class DiGraph {
    // PART 3
 
    private class VertexInfo {
-      private int distance;
-      private int predecessor;
+      public int distance;
+      public int predecessor;
 
-      private VertexInfo BFS (int s) {
-
+      public VertexInfo() {
+         this.distance = -1;
+         this.predecessor = -1;
       }
-
-      public boolean isTherePath(int from, int to) {
-
-      }
-
-
    }
 
+   public boolean isTherePath(int from, int to) {
+      VertexInfo VA[] = BFS(from);
 
+      for (int i=0; i<VA.length; i++) {
+         System.out.println("i: "+(i+1)+"dist: "+(VA[i].distance)+" pred: "+(VA[i].predecessor+1));
+      }
+
+      return false;
+   }
+
+   public int lengthOfPath(int from, int to) {
+      // returns the shortest distance of the to vertex from the from vertex
+      VertexInfo VA[] = BFS(from);
+
+      return -1;
+   }
+
+   private VertexInfo[] BFS (int s) {
+      int N = adj.length;
+      int u;
+      Iterator<Integer> it;
+      VertexInfo VA[] = new VertexInfo[N];
+
+      for (u = 0; u < N; u++) {
+         VA[u] = new VertexInfo();
+      }
+      VA[s].distance = 0;
+      ArrayDeque<Integer> queue = new ArrayDeque<Integer>();
+      queue.add(s);
+      while (queue.peek() != null) {
+         u = queue.remove();
+         it = adj[u].iterator();
+         while (it.hasNext()) {
+            int v = it.next();
+            if (VA[v].distance == -1) {
+               VA[v].distance = VA[u].distance + 1;
+               VA[v].predecessor = u;
+               queue.add(v);
+            }
+         }
+      }
+      return VA;
+   }
+
+   public void printPath(int from, int to) {
+      VertexInfo VA[] = BFS(from);
+      if (VA[to].distance == -1) {
+         System.out.println("no path");
+      } else {
+         String output = "";
+         while (from != to) {
+            output = "->" + to + output;
+            to = VA[to].predecessor;
+         }
+         output = from + output;
+         System.out.println(output);
+      }
+   }
 }

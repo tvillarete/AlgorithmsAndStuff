@@ -90,23 +90,25 @@ public class DiGraphTest {
             int vert1,vert2;
             boolean isPath = false;
             System.out.println("Please enter 2 vertex numbers");
-            from = s.nextInt()-1;
-            to = s.nextInt()-1;
+            from = s.nextInt();
+            to = s.nextInt();
             isPath = graph.isTherePath(from,to);
             System.out.println("Is there a path?: " + isPath);
+            break;
          case 'l':
             //length of path
-            int lenngth = -1;
+            int length = -1;
             System.out.println("Please enter 2 vertex numbers");
-            from = s.nextInt()-1;
-            to = s.nextInt()-1;
+            from = s.nextInt();
+            to = s.nextInt();
             length = graph.lengthOfPath(from,to);
             System.out.println("The length from " + from + " to " + to + " is " +length);
+            break;
          case 's':
             //print the shortest path
            System.out.println("Please enter 2 vertex numbers");
-            from = s.nextInt()-1;
-            to = s.nextInt()-1;
+            from = s.nextInt();
+            to = s.nextInt();
             graph.printPath(from,to);
          /*
          case 'b':
@@ -115,6 +117,7 @@ public class DiGraphTest {
             vert = s.nextInt()-1;
             printTree(vert);
          */
+            break;
          case 'q':
             System.out.println("Good bye.");
             System.exit(0);
