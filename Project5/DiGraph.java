@@ -132,24 +132,33 @@ public class DiGraph {
 
    public boolean isTherePath(int from, int to) {
       VertexInfo VA[] = BFS(from);
-
-      for (int i=0; i<VA.length; i++) {
-         System.out.println("i: "+(i+1)+"dist: "+(VA[i].distance)+" pred: "+(VA[i].predecessor+1));
-      }
-
-      return false;
+      if (VA[to-1].distance == -1)
+         return false;
+      return true;
    }
 
    public int lengthOfPath(int from, int to) {
+      int length=0;
       // returns the shortest distance of the to vertex from the from vertex
       VertexInfo VA[] = BFS(from);
-
-      return -1;
+      if (VA[to].distance == -1) {
+         System.out.println("There is no path");
+         return -1;
+      } 
+      else {
+         length++;
+         while (from != to) {
+            to = VA[to].predecessor;
+            length++;
+         }
+      }
+      return length;
    }
 
    private VertexInfo[] BFS (int s) {
       int N = adj.length;
       int u;
+      s=s-1;
       Iterator<Integer> it;
       VertexInfo VA[] = new VertexInfo[N];
 
@@ -176,16 +185,24 @@ public class DiGraph {
 
    public void printPath(int from, int to) {
       VertexInfo VA[] = BFS(from);
-      if (VA[to].distance == -1) {
-         System.out.println("no path");
-      } else {
+      printVA(VA);
+      if (VA[to-1].distance == -1) {
+         System.out.println("There is no path");
+      } 
+      else {
          String output = "";
          while (from != to) {
-            output = "->" + to + output;
-            to = VA[to].predecessor;
+            output = "->" + (to) + output;
+            to = VA[to-1].predecessor+1;
          }
          output = from + output;
          System.out.println(output);
+      }
+   }
+   
+   private static void printVA(VertexInfo VA[]) {
+      for (int i=0;i<VA.length;i++) {
+         System.out.println((i+1) + ": dist: " + VA[i].distance + " pred: " + VA[i].predecessor);
       }
    }
 }
