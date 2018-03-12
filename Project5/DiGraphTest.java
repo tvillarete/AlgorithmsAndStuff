@@ -106,9 +106,10 @@ public class DiGraphTest {
             break;
          case 's':
             //print the shortest path
-           System.out.println("Please enter 2 vertex numbers");
+            System.out.println("Please enter 2 vertex numbers");
             from = s.nextInt();
             to = s.nextInt();
+            System.out.print("The path from " + from + " to " + to + " is: ");
             graph.printPath(from,to);
             break;
          /*

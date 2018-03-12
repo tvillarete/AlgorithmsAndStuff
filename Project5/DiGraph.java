@@ -139,6 +139,7 @@ public class DiGraph {
 
    public int lengthOfPath(int from, int to) {
       int length=0;
+      /*
       // returns the shortest distance of the to vertex from the from vertex
       VertexInfo VA[] = BFS(from);
       if (VA[to].distance == -1) {
@@ -150,6 +151,16 @@ public class DiGraph {
          while (from != to) {
             to = VA[to].predecessor;
             length++;
+         }
+      }*/
+      VertexInfo VA[] = BFS(from);
+      if (VA[to-1].distance == -1) {
+         System.out.println("There is no path");
+      } 
+      else {
+         while (from != to) {
+            length++;
+            to = VA[to-1].predecessor+1;
          }
       }
       return length;
@@ -185,7 +196,6 @@ public class DiGraph {
 
    public void printPath(int from, int to) {
       VertexInfo VA[] = BFS(from);
-      printVA(VA);
       if (VA[to-1].distance == -1) {
          System.out.println("There is no path");
       } 
