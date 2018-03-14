@@ -147,20 +147,6 @@ public class DiGraph {
 
    public int lengthOfPath(int from, int to) {
       int length=0;
-      /*
-      // returns the shortest distance of the to vertex from the from vertex
-      VertexInfo VA[] = BFS(from);
-      if (VA[to].distance == -1) {
-         System.out.println("There is no path");
-         return -1;
-      }
-      else {
-         length++;
-         while (from != to) {
-            to = VA[to].predecessor;
-            length++;
-         }
-      }*/
       VertexInfo VA[] = BFS(from);
       if (VA[to-1].distance == -1) {
          System.out.println("There is no path");
@@ -218,12 +204,14 @@ public class DiGraph {
       }
    }
 
+   /* TEST METHOD */
    private static void printVA(VertexInfo VA[]) {
       for (int i=0;i<VA.length;i++) {
          System.out.println((i+1) + ": dist: " + VA[i].distance + " pred: " + VA[i].predecessor);
       }
    }
 
+   /* TEST METHOD */
    private static void printTreeArr(TreeNode TN[]) {
       char chr[] = {'a','b','c','d','e','f','g','h','i','j','k','l'};
       Iterator<TreeNode> it;
@@ -265,6 +253,7 @@ public class DiGraph {
       }
       return root;
    }
+
    public void printTree(int s) {
       TreeNode root = buildTree(s);
       printRec(root,0);
