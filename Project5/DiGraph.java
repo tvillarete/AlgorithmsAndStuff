@@ -1,3 +1,11 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 3/14/18
+ * Project 5
+ */
+
 import java.util.*;
 
 public class DiGraph {
@@ -145,7 +153,7 @@ public class DiGraph {
       if (VA[to].distance == -1) {
          System.out.println("There is no path");
          return -1;
-      } 
+      }
       else {
          length++;
          while (from != to) {
@@ -156,7 +164,7 @@ public class DiGraph {
       VertexInfo VA[] = BFS(from);
       if (VA[to-1].distance == -1) {
          System.out.println("There is no path");
-      } 
+      }
       else {
          while (from != to) {
             length++;
@@ -198,7 +206,7 @@ public class DiGraph {
       VertexInfo VA[] = BFS(from);
       if (VA[to-1].distance == -1) {
          System.out.println("There is no path");
-      } 
+      }
       else {
          String output = "";
          while (from != to) {
@@ -209,7 +217,7 @@ public class DiGraph {
          System.out.println(output);
       }
    }
-   
+
    private static void printVA(VertexInfo VA[]) {
       for (int i=0;i<VA.length;i++) {
          System.out.println((i+1) + ": dist: " + VA[i].distance + " pred: " + VA[i].predecessor);
@@ -220,7 +228,6 @@ public class DiGraph {
       char chr[] = {'a','b','c','d','e','f','g','h','i','j','k','l'};
       Iterator<TreeNode> it;
       for (int i=0;i<TN.length;i++){
-         System.out.println("vertex is " + chr[i]);
          it = TN[i].children.iterator();
          while ( it.hasNext() ) {
             System.out.print(chr[it.next().vertNum] + " ");
@@ -229,12 +236,11 @@ public class DiGraph {
       }
    }
 
-
    //PART 4
    private class TreeNode {
       int vertNum;
       LinkedList<TreeNode> children;
-      
+
       public TreeNode(int vertNum) {
          this.vertNum = vertNum;
          this.children = new LinkedList<TreeNode>();
@@ -257,21 +263,23 @@ public class DiGraph {
             root = treeArr[j];
          }
       }
-      printTreeArr(treeArr);
       return root;
    }
    public void printTree(int s) {
       TreeNode root = buildTree(s);
       printRec(root,0);
    }
+
    private void printRec(TreeNode root,int level) {
-      //print current
-      //while treenode list not null, print
       if (root == null)
          return;
       Iterator<TreeNode> it = root.children.iterator();
-      char chr[] = {'a','b','c','d','e','f','g','h','i','j','k','l'};
-      System.out.println(chr[root.vertNum]);
+      String str = "";
+      for (int i=0; i<level; i++) {
+         str = str.concat("    ");
+      }
+      System.out.println(str + (root.vertNum + 1));
+
       while (it.hasNext()) {
          printRec(it.next(),level+1);
       }

@@ -1,3 +1,11 @@
+/**
+ * Tanner Villarete (tvillare)
+ * Daniel Kirkpatrick (djkirkpa)
+ * CSC 349
+ * 3/14/18
+ * Project 5
+ */
+
 import java.util.Scanner;
 
 public class DiGraphTest {
