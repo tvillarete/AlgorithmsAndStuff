@@ -112,14 +112,12 @@ public class DiGraphTest {
             System.out.print("The path from " + from + " to " + to + " is: ");
             graph.printPath(from,to);
             break;
-         /*
          case 'b':
             int vert;
             System.out.println("Please provide a source vertex");
-            vert = s.nextInt()-1;
-            printTree(vert);
+            vert = s.nextInt();
+            graph.printTree(vert);
             break;
-         */
          case 'q':
             System.out.println("Good bye.");
             System.exit(0);

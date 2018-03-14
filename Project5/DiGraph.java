@@ -216,7 +216,7 @@ public class DiGraph {
       }
    }
 
-   private static void printTree(TreeNode TN[]) {
+   private static void printTreeArr(TreeNode TN[]) {
       Iterator<TreeNode> it;
       for (int i=0;i<TN.length;i++){
          System.out.println("vertex is " + i);
@@ -250,14 +250,14 @@ public class DiGraph {
          parent = VA[j].predecessor;
          treeArr[parent].children.add(treeArr[j]);
       }
-      printTree(treeArr);
+      printTreeArr(treeArr);
       return treeArr[0];
    }
-   /*
-   public printTree(int s) {
+   public void printTree(int s) {
       TreeNode root = buildTree(s);
-      printRec(root);
+      //printRec(root);
    }
+   /*
    private printRec(TreeNode root,int level) {
       //print current
       //while treenode list not null, print
