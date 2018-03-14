@@ -217,12 +217,13 @@ public class DiGraph {
    }
 
    private static void printTreeArr(TreeNode TN[]) {
+      char chr[] = {'a','b','c','d','e','f','g','h','i','j','k','l'};
       Iterator<TreeNode> it;
       for (int i=0;i<TN.length;i++){
-         System.out.println("vertex is " + i);
+         System.out.println("vertex is " + chr[i]);
          it = TN[i].children.iterator();
          while ( it.hasNext() ) {
-            System.out.print(it.next() + " ");
+            System.out.print(chr[it.next().vertNum] + " ");
          }
          System.out.println();
       }
@@ -242,25 +243,37 @@ public class DiGraph {
    private TreeNode buildTree(int s) {
       VertexInfo VA[] = BFS(s);
       TreeNode treeArr[] = new TreeNode[VA.length];
+      TreeNode root = null;
       for (int i=0;i<treeArr.length;i++) {
          treeArr[i] = new TreeNode(i);
       }
       for (int j=0;j<VA.length;j++) {
          int parent;
          parent = VA[j].predecessor;
-         treeArr[parent].children.add(treeArr[j]);
+         if (parent!= -1) {
+            treeArr[parent].children.add(treeArr[j]);
+         }
+         else {
+            root = treeArr[j];
+         }
       }
       printTreeArr(treeArr);
-      return treeArr[0];
+      return root;
    }
    public void printTree(int s) {
       TreeNode root = buildTree(s);
-      //printRec(root);
+      printRec(root,0);
    }
-   /*
-   private printRec(TreeNode root,int level) {
+   private void printRec(TreeNode root,int level) {
       //print current
       //while treenode list not null, print
+      if (root == null)
+         return;
+      Iterator<TreeNode> it = root.children.iterator();
+      char chr[] = {'a','b','c','d','e','f','g','h','i','j','k','l'};
+      System.out.println(chr[root.vertNum]);
+      while (it.hasNext()) {
+         printRec(it.next(),level+1);
+      }
    }
-   */
 }
