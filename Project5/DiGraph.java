@@ -216,19 +216,51 @@ public class DiGraph {
       }
    }
 
+   private static void printTree(TreeNode TN[]) {
+      Iterator<TreeNode> it;
+      for (int i=0;i<TN.length;i++){
+         System.out.println("vertex is " + i);
+         it = TN[i].children.iterator();
+         while ( it.hasNext() ) {
+            System.out.print(it.next() + " ");
+         }
+         System.out.println();
+      }
+   }
+
 
    //PART 4
-   /*
    private class TreeNode {
       int vertNum;
-      LinkedList<TreeNode> = new LinkedList<TreeNode>();
+      LinkedList<TreeNode> children;
+      
+      public TreeNode(int vertNum) {
+         this.vertNum = vertNum;
+         this.children = new LinkedList<TreeNode>();
+      }
    }
-   private treeNode buildTree(int s) {
-
+   private TreeNode buildTree(int s) {
+      VertexInfo VA[] = BFS(s);
+      TreeNode treeArr[] = new TreeNode[VA.length];
+      for (int i=0;i<treeArr.length;i++) {
+         treeArr[i] = new TreeNode(i);
+      }
+      for (int j=0;j<VA.length;j++) {
+         int parent;
+         parent = VA[j].predecessor;
+         treeArr[parent].children.add(treeArr[j]);
+      }
+      printTree(treeArr);
+      return treeArr[0];
    }
-
+   /*
    public printTree(int s) {
-
+      TreeNode root = buildTree(s);
+      printRec(root);
+   }
+   private printRec(TreeNode root,int level) {
+      //print current
+      //while treenode list not null, print
    }
    */
 }
